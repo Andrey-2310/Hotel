@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+        " http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="User.User" table="users" catalog="hotel">
+    <class name="EntityDB.User" table="users" catalog="hotel">
         <id name="userID" type="java.lang.Integer">
             <column name="userID" />
             <generator class="identity" />
@@ -16,15 +16,6 @@
         </property>
         <property name="email" type="string">
             <column name="email" length="20" not-null="true" unique="true" />
-        </property>
-        <property name="numberOfRoom" type="java.lang.Integer">
-            <column name="numberOfRoom"  not-null="true" unique="true" />
-        </property>
-        <property name="startDate" type="java.lang.Integer">
-            <column name="startDate"  not-null="true" unique="true" />
-        </property>
-        <property name="finishDate" type="java.lang.Integer">
-            <column name="finishDate"  not-null="true" unique="true" />
         </property>
 
     </class>

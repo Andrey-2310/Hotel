@@ -1,5 +1,6 @@
 package Main;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,12 +24,12 @@ public class MainServer extends HttpServlet {
 
         response.setContentType("text/html");
 
-        String varTextA = "Hello World!";
+      /*  String varTextA = "Hello World!";
         request.setAttribute("textA", varTextA);
         String varTextB = "It JSP.";
-        request.setAttribute("textB", varTextB);
+        request.setAttribute("textB", varTextB);*/
 
-       // RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/register.jsp");
        // dispatcher.forward(request, response);
     }
     @Override
@@ -42,7 +43,7 @@ public class MainServer extends HttpServlet {
         String timeJsp = request.getParameter("time");
         float delta = ((float)(gc.getTimeInMillis() - Long.parseLong(timeJsp)))/1000;
         request.setAttribute("res", delta);
-        request.getRequestDispatcher("/jsp/result.jsp").forward(request, response);
+        request.getRequestDispatcher("/register.jsp").forward(request, response);
     }
 
 }

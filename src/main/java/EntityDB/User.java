@@ -1,4 +1,6 @@
-package User;
+package EntityDB;
+
+import org.apache.commons.codec.digest.DigestUtils;
 
 import java.io.Serializable;
 
@@ -9,14 +11,13 @@ public class User implements Serializable {
 
     public User() {}
 
-    public User(Integer userID, String login, String password, String email, Integer numberOfRoom, Integer startDate, Integer finishDate) {
-        this.userID = userID;
-        this.login = login;
-        this.password = password;
-        this.email = email;
-        this.numberOfRoom = numberOfRoom;
-        this.startDate = startDate;
-        this.finishDate = finishDate;
+    public User( String login, String password, String email, Integer numberOfRoom, Integer startDate, Integer finishDate) {
+        setLogin(login);
+        setPassword(password);
+        setEmail(email);
+        setNumberOfRoom(numberOfRoom);
+        setStartDate(startDate);
+        setFinishDate(finishDate);
     }
 
     private static final long serialVersionUID = 1L;
@@ -51,7 +52,7 @@ public class User implements Serializable {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = encription(password);
     }
 
     public String getEmail() {
@@ -84,5 +85,24 @@ public class User implements Serializable {
 
     public void setFinishDate(Integer finishDate) {
         this.finishDate = finishDate;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userID=" + userID +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", numberOfRoom=" + numberOfRoom +
+                ", startDate=" + startDate +
+                ", finishDate=" + finishDate +
+                '}';
+    }
+
+    public String encription(String st) {
+        String md5Hex = DigestUtils.md5Hex(st);
+
+        return md5Hex;
     }
 }
