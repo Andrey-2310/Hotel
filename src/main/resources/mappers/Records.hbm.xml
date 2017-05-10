@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        " http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="EntityDB.Record" table="records" catalog="hotel">
+        <id name="roomID" type="java.lang.Integer">
+            <column name="roomID" not-null="true" unique="true" />
+            <generator class="identity" />
+        </id>
+        <property name="userID" type="java.lang.Integer">
+            <column name="userID"  not-null="true" unique="true" />
+        </property>
+        <property name="startDate" type="java.lang.Integer">
+            <column name="startDate"  not-null="true" unique="true" />
+        </property>
+        <property name="finishDate" type="java.lang.Integer">
+            <column name="finishDate"  not-null="true" unique="true" />
+        </property>
+
+    </class>
+</hibernate-mapping>
