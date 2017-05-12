@@ -4,7 +4,6 @@
     <title></title>
 </head>
 <body>
-${textA}
-${textB}
+<h1>Krasava</h1>
 </body>
 </html>

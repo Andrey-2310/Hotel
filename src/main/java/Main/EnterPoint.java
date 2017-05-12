@@ -1,6 +1,6 @@
 package Main;
 
-import EntityDB.User;
+import HibernateUtil.UserHibernateUtil;
 import org.hibernate.Session;
 
 /**
@@ -10,21 +10,24 @@ import org.hibernate.Session;
 public class EnterPoint {
 
     public static void main(String[] args) {
-        Session session = User.UserHibernateUtil.getSessionFactory().openSession();
-
+        Session session = UserHibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        User user = new User("user7", "user7", "niggas@mail.ru", 7, 12, 24);
+        UserHibernateUtil.getUsers(session);
+
+
+      //  User user = new User("user7", "user7", "niggas@mail.ru");
       //  user.setUserID(8);
-        session.save(user);
+      //  session.save(user);
        // session.load
 
-    /*    Criteria c2 = session.createCriteria(User.class);
+
+     /*  Criteria c2 = session.createCriteria(User.class);
         c2.add(Restrictions.like("userID", 1));
         List suppliers=c2.list();
         for(Object s: suppliers){
             System.out.println(s.toString());
         }
-    */
+*/
         session.getTransaction().commit();
         //  session.find()
     }

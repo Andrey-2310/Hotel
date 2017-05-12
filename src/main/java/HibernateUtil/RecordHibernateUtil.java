@@ -38,4 +38,5 @@ public class RecordHibernateUtil {
         getSessionFactory().close();
     }
 
+
 }

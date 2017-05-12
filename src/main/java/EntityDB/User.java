@@ -11,13 +11,10 @@ public class User implements Serializable {
 
     public User() {}
 
-    public User( String login, String password, String email, Integer numberOfRoom, Integer startDate, Integer finishDate) {
+    public User( String login, String password, String email) {
         setLogin(login);
         setPassword(password);
         setEmail(email);
-        setNumberOfRoom(numberOfRoom);
-        setStartDate(startDate);
-        setFinishDate(finishDate);
     }
 
     private static final long serialVersionUID = 1L;
@@ -25,9 +22,7 @@ public class User implements Serializable {
     private String login;
     private String password;
     private String email;
-    private Integer numberOfRoom;
-    private Integer startDate;
-    private Integer finishDate;
+
 
 
 
@@ -63,29 +58,7 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public Integer getNumberOfRoom() {
-        return numberOfRoom;
-    }
 
-    public void setNumberOfRoom(Integer numberOfRoom) {
-        this.numberOfRoom = numberOfRoom;
-    }
-
-    public Integer getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Integer startDate) {
-        this.startDate = startDate;
-    }
-
-    public Integer getFinishDate() {
-        return finishDate;
-    }
-
-    public void setFinishDate(Integer finishDate) {
-        this.finishDate = finishDate;
-    }
 
     @Override
     public String toString() {
@@ -93,10 +66,7 @@ public class User implements Serializable {
                 "userID=" + userID +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", numberOfRoom=" + numberOfRoom +
-                ", startDate=" + startDate +
-                ", finishDate=" + finishDate +
+                ", email='" + email +
                 '}';
     }
 
