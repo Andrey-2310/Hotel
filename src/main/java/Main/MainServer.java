@@ -1,5 +1,6 @@
 package Main;
 
+import EntityDB.User;
 import HibernateUtil.UserHibernateUtil;
 import org.hibernate.Session;
 
@@ -10,17 +11,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+
 /**
  * Created by Андрей on 07.05.2017.
  */
 @WebServlet("/hotel")
 public class MainServer extends HttpServlet {
 
+    public enum requestState {
+        ENTER,
+        REGISTRATION,
+        REGISTRATE,
+        STARTSIGNIN,
+        SIGNIN,
+        DEFAULT
+
+    }
 
     public MainServer() {
     }
 
-    static int i = 0;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -35,21 +45,59 @@ public class MainServer extends HttpServlet {
     private void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html");
-        if (checkParameter(request)) {
-            request.getRequestDispatcher("/register.jsp").forward(request, response);
-        }
-        else {
-            request.getRequestDispatcher("/enter.jsp").forward(request, response);
-          //  request.getRequestDispatcher("/index.jsp").forward(request, response);
-        }
         Session session = UserHibernateUtil.getSessionFactory().openSession();
+        switch (checkParameter(request)) {
+            case REGISTRATION: {
+                request.getRequestDispatcher("/register.jsp").forward(request, response);
+                break;
+            }
+            case ENTER: {
+                request.getRequestDispatcher("/enter.jsp").forward(request, response);
+                break;
+                //  request.getRequestDispatcher("/index.jsp").forward(request, response);
+            }
+            case REGISTRATE: {
+                User user = new User(request.getParameter("login"),
+                        request.getParameter("password"),
+                        request.getParameter("email"));
+                if (UserHibernateUtil.checkNewUser(session, user)) {
+                    UserHibernateUtil.addUser(session, user);
+                    request.getRequestDispatcher("/reserve.jsp").forward(request, response);
+                } else {
+                    request.getRequestDispatcher("/register.jsp").forward(request, response);
+                }
+                break;
+            }
+            case STARTSIGNIN: {
+                request.getRequestDispatcher("/signin.jsp").forward(request, response);
+                break;
+            }
+            case SIGNIN: {
+                User user = new User(request.getParameter("login"), request.getParameter("password"));
+                if (UserHibernateUtil.checkUser(session, user))
+                    request.getRequestDispatcher("/reserve.jsp").forward(request, response);
+                else
+                    request.getRequestDispatcher("/signin.jsp").forward(request, response);
+                break;
+            }
+            case DEFAULT:
+                request.getRequestDispatcher("/enter.jsp").forward(request, response);
+                break;
+        }
         // request.setAttribute("admin", UserHibernateUtil.getUsers(session).get(0).toString()); //UserHibernateUtil.getUsers(session);
-        System.out.println("Request " + i++);
 
     }
 
-    private boolean checkParameter(HttpServletRequest request) {
-        return request.getParameter("regButton") != null;
+    private requestState checkParameter(HttpServletRequest request) {
+        if (request.getParameter("regButton") != null)
+            return requestState.REGISTRATION;
+        else if (request.getParameter("cancelEnterButton") != null)
+            return requestState.ENTER;
+        else if (request.getParameter("registrateButton") != null)
+            return requestState.REGISTRATE;
+        else if (request.getParameter("entButton") != null)
+            return requestState.STARTSIGNIN;
+        return requestState.DEFAULT;
     }
 
 

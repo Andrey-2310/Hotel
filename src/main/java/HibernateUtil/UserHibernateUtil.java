@@ -54,4 +54,40 @@ public class UserHibernateUtil {
         }
         return suppliers;
     }
+
+    public static boolean checkNewUser(Session session, User user){
+       if(!User.validateUser(user))return false;
+        Criteria c1 = session.createCriteria(User.class);
+        c1.add(Restrictions.like("login", user.getLogin()));
+        List suppliers = c1.list();
+        if(!suppliers.isEmpty()) return false;
+        Criteria c2 = session.createCriteria(User.class);
+        c2.add(Restrictions.like("password", user.encription(user.getPassword())));
+        suppliers = c2.list();
+        if(!suppliers.isEmpty()) return false;
+        Criteria c3 = session.createCriteria(User.class);
+        c3.add(Restrictions.like("email", user.getEmail()));
+        suppliers = c3.list();
+        if(!suppliers.isEmpty()) return false;
+        return true;
+    }
+
+    public static boolean checkUser(Session session, User user) {
+        Criteria c1 = session.createCriteria(User.class);
+        c1.add(Restrictions.like("login", user.getLogin()));
+        c1.add(Restrictions.like("password", user.encription(user.getPassword())));
+        List suppliers = c1.list();
+        System.out.println(user.encription(user.getPassword()));
+        if(suppliers.isEmpty()) return false;
+       /* Criteria c2 = session.createCriteria(User.class);
+        c2.add(Restrictions.like("password", user.encription(user.getPassword())));
+        suppliers = c2.list();
+        if(!suppliers.isEmpty()) return false;*/
+        return true;
+    }
+
+
+    public static void addUser(Session session, User user){
+        session.save(user);
+    }
 }

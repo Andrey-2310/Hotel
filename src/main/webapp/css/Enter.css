@@ -1,0 +1,66 @@
+body{
+    background:url(rec.jpg) no-repeat;
+}
+
+#RegistrationButton{
+    border: 1px solid black;
+    border-radius: 10px;
+    height: 30px;
+    width: 120px;
+    background-color: #a80101;
+font-size:15px;
+font-weight: bold;
+}
+
+#SignUpButton{
+    border: 1px solid black;
+    border-radius: 10px;
+    height: 30px;
+    width: 100px;
+font-size:15px;
+font-weight: bold;
+}
+
+
+#HotelName{
+    font-size:70px;
+margin-left: 37%;
+ color: #ffde84;
+text-shadow: #000000 1px 1px 0, #000000 2px 2px 0, 
+                 #000000 3px 3px 0, #000000 4px 4px 0, 
+                #000000 5px 5px 0;
+}
+#langButton{
+    position: absolute;
+     right: 45;
+     top:30;
+    border: 1px solid black;
+    border-radius: 10px;
+    height: 25px;
+    width: 50px;
+    font-size:15px;
+    font-weight: bold;
+background-color: #a80101;
+}
+
+
+#Motto{
+font-size:60px;
+margin-left: 40%;
+ color: #a80101;
+text-shadow: #000000 1px 1px 0, #000000 2px 2px 0, 
+                 #000000 3px 3px 0, #000000 4px 4px 0, 
+                #000000 5px 5px 0;
+}
+
+.Field_Text{
+      position: absolute;
+     right: 100;
+     top:30;
+background-color: #e8e8e8;
+ border: 1px solid black;
+    border-radius: 10px;
+ height: 25px;
+ font-weight: bold;
+}
+

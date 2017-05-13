@@ -3,7 +3,7 @@
 <head>
     <title>Register</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="css/Registration.css">
+    <link rel="stylesheet" href="css/SignIn.css">
 </head>
 <body>
 <form method="post" action="hotel">
@@ -14,7 +14,7 @@
             <td>
                 <select name="lang" class="Field_Text">
                     <option selected value="RU" class="Field_Text">Русский</option>
-                    <option value="EN" class="Field_Text"> English </option>
+                    <option value="EN" class="Field_Text">English</option>
                 </select>
             </td>
             <td> <input type="submit" name="langButton" value="OK" id="LangButton"></td>
@@ -33,12 +33,8 @@
             <td><input type="password" name="password" class="Field"></td>
         </tr>
         <tr>
-            <td class="Text Prompt" >Email</td>
-            <td><input type="text" name="email" class="Field"></td>
-        </tr>
-        <tr>
             <td align="right"><input type="submit" name="cancelEnterButton" value="Cancel" id="cancelButton"></td>
-            <td align="right"><input type="submit" name="registrateButton" value="Registrate" id="RegistrationButton"></td>
+            <td align="right"><input type="submit" name="EnterButton" value="Enter" id="EnterButton"></td>
         </tr>
         
     </table>
