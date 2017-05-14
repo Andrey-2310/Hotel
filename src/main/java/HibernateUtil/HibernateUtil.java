@@ -18,7 +18,7 @@ import org.hibernate.service.ServiceRegistry;
 
 import java.util.List;
 
-public class UserHibernateUtil {
+public class HibernateUtil {
 
     private static final SessionFactory sessionFactory = buildSessionFactory();
     private static ServiceRegistry serviceRegistry;
@@ -26,7 +26,7 @@ public class UserHibernateUtil {
     private static SessionFactory buildSessionFactory() {
         try {
             StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
-                    .configure("configs/UserHibernate.cfg.xml").build();
+                    .configure("configs/Hibernate.cfg.xml").build();
             Metadata metadata = new MetadataSources(standardRegistry).getMetadataBuilder().build();
             return metadata.getSessionFactoryBuilder().build();
 

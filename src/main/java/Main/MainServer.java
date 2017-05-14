@@ -1,7 +1,7 @@
 package Main;
 
 import EntityDB.User;
-import HibernateUtil.UserHibernateUtil;
+import HibernateUtil.HibernateUtil;
 import org.hibernate.Session;
 
 import javax.servlet.ServletException;
@@ -45,7 +45,7 @@ public class MainServer extends HttpServlet {
     private void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html");
-        Session session = UserHibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
         switch (checkParameter(request)) {
             case REGISTRATION: {
                 request.getRequestDispatcher("/register.jsp").forward(request, response);
@@ -60,8 +60,8 @@ public class MainServer extends HttpServlet {
                 User user = new User(request.getParameter("login"),
                         request.getParameter("password"),
                         request.getParameter("email"));
-                if (UserHibernateUtil.checkNewUser(session, user)) {
-                    UserHibernateUtil.addUser(session, user);
+                if (HibernateUtil.checkNewUser(session, user)) {
+                    HibernateUtil.addUser(session, user);
                     request.getRequestDispatcher("/reserve.jsp").forward(request, response);
                 } else {
                     request.getRequestDispatcher("/register.jsp").forward(request, response);
@@ -74,7 +74,7 @@ public class MainServer extends HttpServlet {
             }
             case SIGNIN: {
                 User user = new User(request.getParameter("login"), request.getParameter("password"));
-                if (UserHibernateUtil.checkUser(session, user))
+                if (HibernateUtil.checkUser(session, user))
                     request.getRequestDispatcher("/reserve.jsp").forward(request, response);
                 else
                     request.getRequestDispatcher("/signin.jsp").forward(request, response);
@@ -84,7 +84,7 @@ public class MainServer extends HttpServlet {
                 request.getRequestDispatcher("/enter.jsp").forward(request, response);
                 break;
         }
-        // request.setAttribute("admin", UserHibernateUtil.getUsers(session).get(0).toString()); //UserHibernateUtil.getUsers(session);
+        // request.setAttribute("admin", HibernateUtil.getUsers(session).get(0).toString()); //HibernateUtil.getUsers(session);
 
     }
 
@@ -97,6 +97,8 @@ public class MainServer extends HttpServlet {
             return requestState.REGISTRATE;
         else if (request.getParameter("entButton") != null)
             return requestState.STARTSIGNIN;
+        else if (request.getParameter("signinButton") != null)
+            return requestState.SIGNIN;
         return requestState.DEFAULT;
     }
 

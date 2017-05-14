@@ -34,7 +34,7 @@
         </tr>
         <tr>
             <td align="right"><input type="submit" name="cancelEnterButton" value="Cancel" id="cancelButton"></td>
-            <td align="right"><input type="submit" name="EnterButton" value="Enter" id="EnterButton"></td>
+            <td align="right"><input type="submit" name="signinButton" value="Enter" id="EnterButton"></td>
         </tr>
         
     </table>

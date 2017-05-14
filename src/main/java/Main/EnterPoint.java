@@ -1,7 +1,7 @@
 package Main;
 
 import EntityDB.User;
-import HibernateUtil.UserHibernateUtil;
+import HibernateUtil.HibernateUtil;
 import org.hibernate.Session;
 
 /**
@@ -11,15 +11,15 @@ import org.hibernate.Session;
 public class EnterPoint {
 
     public static void main(String[] args) {
-        Session session = UserHibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
         /*session.beginTransaction();
-        UserHibernateUtil.getUsers(session);
+        HibernateUtil.getUsers(session);
     */
         User user = new User("user4", "user4");
-     /*   if (UserHibernateUtil.checkNewUser(session, user))
+     /*   if (HibernateUtil.checkNewUser(session, user))
             System.out.println("Vse ogon' ");
         else System.out.println("ne och");*/
-        if (UserHibernateUtil.checkUser(session, user))
+        if (HibernateUtil.checkUser(session, user))
             System.out.println("Vse ogon' ");
         else System.out.println("ne och");
 
