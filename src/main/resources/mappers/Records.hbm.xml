@@ -3,18 +3,21 @@
         " http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="EntityDB.Record" table="records" catalog="hotel">
+    <class name="EntityDB.Reserve" table="records" catalog="hotel">
         <id name="roomID" type="java.lang.Integer">
             <column name="roomID" not-null="true" unique="true" />
             <generator class="identity" />
         </id>
-        <property name="userID" type="java.lang.Integer">
-            <column name="userID"  not-null="true" unique="true" />
+        <property name="roomSize" type="java.lang.Integer">
+            <column name="roomSize"  not-null="true"  />
         </property>
-        <property name="startDate" type="java.lang.Integer">
+        <property name="password" type="java.lang.String">
+            <column name="password"  not-null="true"  />
+        </property>
+        <property name="startDate" type="java.lang.String">
             <column name="startDate"  not-null="true" unique="true" />
         </property>
-        <property name="finishDate" type="java.lang.Integer">
+        <property name="finishDate" type="java.lang.String">
             <column name="finishDate"  not-null="true" unique="true" />
         </property>
 

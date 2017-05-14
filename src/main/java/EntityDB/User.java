@@ -25,19 +25,10 @@ public class User implements Serializable {
     }
 
     private static final long serialVersionUID = 1L;
-    private Integer userID;
     private String login;
     private String password;
     private String email;
 
-
-    public Integer getUserID() {
-        return userID;
-    }
-
-    public void setUserID(Integer userID) {
-        this.userID = userID;
-    }
 
     public String getLogin() {
         return login;
@@ -67,8 +58,7 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "User{" +
-                "userID=" + userID +
-                ", login='" + login + '\'' +
+                " login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email +
                 '}';

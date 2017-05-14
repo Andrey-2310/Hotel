@@ -1,7 +1,7 @@
 package Main;
 
 import EntityDB.User;
-import HibernateUtil.HibernateUtil;
+import HibernateDescription.HibernateUtils.HibernateUtil;
 import org.hibernate.Session;
 
 /**
@@ -11,18 +11,21 @@ import org.hibernate.Session;
 public class EnterPoint {
 
     public static void main(String[] args) {
+User user=new User("admin", "admin", "ew@f.rf");
+        System.out.println(user.encription(user.getPassword()));
+
         Session session = HibernateUtil.getSessionFactory().openSession();
+       User userDB= session.get(User.class, user.encription(user.getPassword()));
+      //  UserOperations.addUser(session, new User("a", "A", "B"));
         /*session.beginTransaction();
         HibernateUtil.getUsers(session);
     */
-        User user = new User("user4", "user4");
-     /*   if (HibernateUtil.checkNewUser(session, user))
-            System.out.println("Vse ogon' ");
-        else System.out.println("ne och");*/
-        if (HibernateUtil.checkUser(session, user))
+
+
+      /*  if (UserOperations.checkUser(session, user))
             System.out.println("Vse ogon' ");
         else System.out.println("ne och");
-
+*/
         //  User user = new User("user7", "user7", "niggas@mail.ru");
         //  user.setUserID(8);
         //  session.save(user);

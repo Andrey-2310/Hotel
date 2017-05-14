@@ -1,7 +1,11 @@
 package Main;
 
+import Email.SendEmail;
+import EntityDB.Reserve;
 import EntityDB.User;
-import HibernateUtil.HibernateUtil;
+import HibernateDescription.HibernateOperations.ReserveOperations;
+import HibernateDescription.HibernateOperations.UserOperations;
+import HibernateDescription.HibernateUtils.HibernateUtil;
 import org.hibernate.Session;
 
 import javax.servlet.ServletException;
@@ -18,12 +22,14 @@ import java.io.IOException;
 @WebServlet("/hotel")
 public class MainServer extends HttpServlet {
 
+    private  User currentUser=null;
     public enum requestState {
         ENTER,
         REGISTRATION,
         REGISTRATE,
         STARTSIGNIN,
         SIGNIN,
+        RESULTOFRESERVE,
         DEFAULT
 
     }
@@ -57,11 +63,11 @@ public class MainServer extends HttpServlet {
                 //  request.getRequestDispatcher("/index.jsp").forward(request, response);
             }
             case REGISTRATE: {
-                User user = new User(request.getParameter("login"),
+                currentUser = new User(request.getParameter("login"),
                         request.getParameter("password"),
                         request.getParameter("email"));
-                if (HibernateUtil.checkNewUser(session, user)) {
-                    HibernateUtil.addUser(session, user);
+                if (UserOperations.checkNewUser(session, currentUser)) {
+                    UserOperations.addUser(session, currentUser);
                     request.getRequestDispatcher("/reserve.jsp").forward(request, response);
                 } else {
                     request.getRequestDispatcher("/register.jsp").forward(request, response);
@@ -73,11 +79,28 @@ public class MainServer extends HttpServlet {
                 break;
             }
             case SIGNIN: {
-                User user = new User(request.getParameter("login"), request.getParameter("password"));
-                if (HibernateUtil.checkUser(session, user))
+                if(currentUser==null)
+                currentUser = new User(request.getParameter("login"), request.getParameter("password"));
+                if (UserOperations.checkUser(session, currentUser))
                     request.getRequestDispatcher("/reserve.jsp").forward(request, response);
                 else
                     request.getRequestDispatcher("/signin.jsp").forward(request, response);
+                break;
+            }
+            case RESULTOFRESERVE:{
+                System.out.println(request.getParameter("from"));
+                Reserve reserve=new Reserve((Integer.parseInt(request.getParameter("size"))),
+                        currentUser.getPassword(), request.getParameter("from"),
+                        request.getParameter("to"));
+                if(ReserveOperations.ReserveValidation(reserve, session)) {
+                    ReserveOperations.addReserve(session, reserve);
+                    SendEmail.sendEmail(currentUser.getEmail(), "You've just booked a "+reserve.getRoomSize()+
+                            " place room in our Hotel. Booking period: From "+reserve.getStartDate()+
+                    " to "+ reserve.getFinishDate()+". We are looking forward to meet with you");
+                    request.getRequestDispatcher("/resultOfReserve.jsp").forward(request, response);
+                }
+                else
+                request.getRequestDispatcher("/reserve.jsp").forward(request, response);
                 break;
             }
             case DEFAULT:
@@ -97,8 +120,13 @@ public class MainServer extends HttpServlet {
             return requestState.REGISTRATE;
         else if (request.getParameter("entButton") != null)
             return requestState.STARTSIGNIN;
-        else if (request.getParameter("signinButton") != null)
+        else if (request.getParameter("signinButton") != null || request.getParameter("continueButton") != null)
             return requestState.SIGNIN;
+        if (request.getParameter("reserveButton") != null)
+            return requestState.RESULTOFRESERVE;
+        else if(request.getParameter("ExitButton")!=null)
+            return requestState.DEFAULT;
+
         return requestState.DEFAULT;
     }
 

@@ -12,27 +12,26 @@
             <table align="center">
                 <tr>
                     <td class="Text Prompt">Дата заезда</td>
-                    <td><input type="date" name="from" class="Field"></td>
-                </tr>
-                <tr>
                     <td class="Text Prompt">Дата выезда</td>
-                    <td><input type="date" name="to" class="Field" ></td>
+                    <td class="Text Prompt">Количество человек</td>
+                    
                 </tr>
                 <tr>
-                    <td class="Text Prompt">Количество спальных мест</td>
-                    <td>
-                        <select name="size" class="Field Text">
+                    <td><input type="date" name="from" class="Field"></td>
+                    <td><input type="date" name="to" class="Field" ></td>
+                     <td>
+                        <select name="size" class="Field Text Prompt" id="amountButton" >
                             <option selected value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
                             <option value="4">4</option>
                         </select>
                     </td>
+                     <td><input align="center" type="submit" name="reserveButton" value="Забронировать номер" class="Text" id="ReserveButton"></td>
+                     <td><input align="center" type="submit" name="exitButton" value="Выйти" class="Text" id="ExitButton"></td>
                 </tr>
-                <tr>
-                    <td></td>
-                    <td><input align="center" type="submit" name="reserveButton" value="Забронировать номер" class="Text" id="ReserveButton"></td>
-                </tr>
+                   
+                
             </table>
         </div>
     </div>
