@@ -4,15 +4,18 @@
 
 <hibernate-mapping>
     <class name="EntityDB.User" table="users" catalog="hotel">
-        <id name="password" type="string">
-            <column name="password" />
+        <id name="userID" type="java.lang.Integer">
+            <column name="userID" />
             <generator class="identity" />
         </id>
+        <property name="password" type="string">
+            <column name="password" length="40" not-null="true" unique="true" />
+        </property>
         <property name="login" type="string">
-            <column name="login" length="20" not-null="true"  />
+            <column name="login" length="40" not-null="true"  />
         </property>
         <property name="email" type="string">
-            <column name="email" length="20" not-null="true" unique="true" />
+            <column name="email" length="40" not-null="true" unique="true" />
         </property>
 
     </class>

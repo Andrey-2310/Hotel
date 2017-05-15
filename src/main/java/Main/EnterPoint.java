@@ -1,8 +1,7 @@
 package Main;
 
 import EntityDB.User;
-import HibernateDescription.HibernateUtils.HibernateUtil;
-import org.hibernate.Session;
+import HibernateDescription.HibernateOperations.UserOperations;
 
 /**
  * Created by Андрей on 08.05.2017.
@@ -11,11 +10,12 @@ import org.hibernate.Session;
 public class EnterPoint {
 
     public static void main(String[] args) {
-User user=new User("admin", "admin", "ew@f.rf");
-        System.out.println(user.encription(user.getPassword()));
 
-        Session session = HibernateUtil.getSessionFactory().openSession();
-       User userDB= session.get(User.class, user.encription(user.getPassword()));
+User user=new User("admin", "admin");
+       // Session session = HibernateUtil.getSessionFactory().openSession();
+        UserOperations.checkAdmin( user);
+
+
       //  UserOperations.addUser(session, new User("a", "A", "B"));
         /*session.beginTransaction();
         HibernateUtil.getUsers(session);

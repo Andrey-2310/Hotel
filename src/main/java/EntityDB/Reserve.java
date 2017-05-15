@@ -7,7 +7,7 @@ public class Reserve {
 
     private Integer roomID;
     private Integer roomSize;
-    private String password;
+    private String userLogin;
     private String startDate;
     private String finishDate;
 
@@ -15,9 +15,10 @@ public class Reserve {
         super();
     }
 
-    public Reserve(Integer roomSize, String password, String startDate, String finishDate) {
+
+    public Reserve(Integer roomSize, String userLogin, String startDate, String finishDate) {
         this.roomSize = roomSize;
-        this.password = password;
+        this.userLogin = userLogin;
         this.startDate = startDate;
         this.finishDate = finishDate;
     }
@@ -39,14 +40,6 @@ public class Reserve {
         this.roomSize = roomSize;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getStartDate() {
         return startDate;
     }
@@ -59,7 +52,23 @@ public class Reserve {
         return finishDate;
     }
 
-    public void setFinishDate(String finishDate) {
-        this.finishDate = finishDate;
+    public void setFinishDate(String finishDate) {this.finishDate = finishDate;}
+
+
+    public String getUserLogin() {return userLogin;}
+
+    public void setUserLogin(String userLogin) {this.userLogin = userLogin;}
+
+
+    @Override
+    public String toString() {
+        return "Reserve{" +
+                "roomSize=" + roomSize +
+                ", password='" + userLogin + '\'' +
+                ", startDate='" + startDate + '\'' +
+                ", finishDate='" + finishDate + '\'' +
+                '}';
     }
+
+
 }

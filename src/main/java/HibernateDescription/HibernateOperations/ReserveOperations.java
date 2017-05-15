@@ -8,6 +8,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import java.util.List;
+import java.util.Vector;
 
 /**
  * Created by Андрей on 14.05.2017.
@@ -17,7 +18,22 @@ public class ReserveOperations {
     private static final Logger log = Logger.getLogger(ReserveOperations.class);
 
 
-   public static boolean ReserveValidation(Reserve reserve, Session session){
+    public static Vector<Reserve> getAllReserves(Session session) {
+        Criteria criteria = session.createCriteria(Reserve.class)
+                .add(Restrictions.gt("roomID", 0));
+        List suppliers = criteria.list();
+        for (Object s : suppliers) {
+            System.out.println(s.toString());
+        }
+        log.info("Заказы извлечены из базы данных");
+        Vector<Reserve> reserves= new Vector<Reserve>();
+        for(Object sup:suppliers){
+            reserves.add((Reserve)sup);
+        }
+        return reserves;
+    }
+
+   public static boolean reserveValidation(Reserve reserve, Session session){
        if(reserve.getStartDate().compareTo(reserve.getFinishDate())>0) {
            log.info("Arrive date is bigger than Departure date");
            return false;

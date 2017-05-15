@@ -8,6 +8,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import java.util.List;
+import java.util.Vector;
 
 /**
  * Created by Андрей on 14.05.2017.
@@ -15,15 +16,22 @@ import java.util.List;
 public class UserOperations {
 
     private static final Logger log = Logger.getLogger(UserOperations.class);
-  /*  public static List getUsers(Session session) {
-        Criteria c2 = session.createCriteria(User.class);
-        c2.add(Restrictions.like("userID", 1));
-        List suppliers = c2.list();
+
+
+    public static Vector getAllUsers(Session session) {
+        Criteria criteria = session.createCriteria(User.class)
+                .add(Restrictions.gt("userID", 0));
+        List suppliers = criteria.list();
         for (Object s : suppliers) {
             System.out.println(s.toString());
         }
-        return suppliers;
-    }*/
+        log.info("Пользователи извлечены из базы данных");
+        Vector<User> users= new Vector<User>();
+        for(Object sup:suppliers){
+            users.add((User)sup);
+        }
+        return users;
+    }
 
     public static boolean checkNewUser(Session session, User user) {
         if (!User.validateUser(user)) return false;
@@ -34,7 +42,7 @@ public class UserOperations {
             log.info("Пользователь с выбранным логином существует");
             return false;}
         Criteria c2 = session.createCriteria(User.class);
-        c2.add(Restrictions.like("password", user.encription(user.getPassword())));
+        c2.add(Restrictions.like("password",user.getPassword()));
         suppliers = c2.list();
         if (!suppliers.isEmpty()) {
             log.info("Пользователь с выбранным паролем существует");
@@ -51,12 +59,17 @@ public class UserOperations {
     }
 
     public static boolean checkUser(Session session, User user) {
-        User userDB = session.get(User.class, user.encription(user.getPassword()));
-        if (userDB == null){
+        Criteria criteria = session.createCriteria(User.class);
+        criteria.add(Restrictions.like("password",user.getPassword()));
+        criteria.add(Restrictions.like("login",user.getLogin()));
+        List suppliers = criteria.list();
+        if (suppliers.isEmpty()) {
             log.info("Неверный пароль");
             return false;
         }
+        User userDB=(User)suppliers.get(0);
         user.setEmail(userDB.getEmail());
+        user.setUserID(userDB.getUserID());
         return true;
 
     }
@@ -67,5 +80,16 @@ public class UserOperations {
         session.save(user);
         tx1.commit();
         log.info("Новый пользователь успешно добавлен");
+    }
+
+    public static boolean checkAdmin(User user) {
+
+        System.out.println( user.toString());
+       if(user.getLogin().equals("admin") && user.getPassword().equals(User.encription("admin"))) {
+           log.info("Пользователь является администратором");
+           return true;
+       }
+        log.info("Пользователь не является администратором");
+        return false;
     }
 }

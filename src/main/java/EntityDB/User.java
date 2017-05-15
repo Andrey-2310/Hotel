@@ -16,19 +16,28 @@ public class User implements Serializable {
 
     public User(String login, String password){
         setLogin(login);
-        setPassword(password);
+        setPassword(encription(password));
     }
     public User(String login, String password, String email) {
         setLogin(login);
-        setPassword(password);
+        setPassword(encription(password));
         setEmail(email);
     }
 
     private static final long serialVersionUID = 1L;
+    private Integer userID;
     private String login;
     private String password;
     private String email;
 
+
+    public Integer getUserID() {
+        return userID;
+    }
+
+    public void setUserID(Integer userID) {
+        this.userID = userID;
+    }
 
     public String getLogin() {
         return login;
@@ -43,7 +52,7 @@ public class User implements Serializable {
     }
 
     public void setPassword(String password) {
-        this.password = encription(password);
+        this.password = password;
     }
 
     public String getEmail() {
@@ -64,10 +73,8 @@ public class User implements Serializable {
                 '}';
     }
 
-    public String encription(String st) {
-        String md5Hex = DigestUtils.md5Hex(st);
-
-        return md5Hex;
+    public static String encription(String st) {
+        return  DigestUtils.md5Hex(st);
     }
 
     public static boolean validateUser(User user) {

@@ -4,7 +4,7 @@
     <facet type="hibernate" name="Hibernate">
       <configuration>
         <datasource-map>
-          <unit-entry name="configs:Hibernate.cfg.xml" />
+          <unit-entry name="configs:Hibernate.cfg.xml" value="b2f28971-a840-483d-a165-7450194499f6" />
           <unit-entry name="hibernate.cfg.xml" value="b2f28971-a840-483d-a165-7450194499f6" />
         </datasource-map>
         <naming-strategy-map />
@@ -75,5 +75,6 @@
     <orderEntry type="library" name="Maven: javax.mail:mail:1.4" level="project" />
     <orderEntry type="library" name="Maven: javax.activation:activation:1.1" level="project" />
     <orderEntry type="library" name="log4j-1.2.17" level="project" />
+    <orderEntry type="library" name="jstl-1.2" level="project" />
   </component>
 </module>

@@ -11,14 +11,15 @@
         <property name="roomSize" type="java.lang.Integer">
             <column name="roomSize"  not-null="true"  />
         </property>
-        <property name="password" type="java.lang.String">
-            <column name="password"  not-null="true"  />
+
+        <property name="userLogin" type="java.lang.String">
+            <column name="userLogin"  not-null="true"  />
         </property>
         <property name="startDate" type="java.lang.String">
-            <column name="startDate"  not-null="true" unique="true" />
+            <column name="startDate"  not-null="true"  />
         </property>
         <property name="finishDate" type="java.lang.String">
-            <column name="finishDate"  not-null="true" unique="true" />
+            <column name="finishDate"  not-null="true"  />
         </property>
 
     </class>
